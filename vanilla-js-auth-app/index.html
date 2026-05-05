@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>vanilla-js-auth-app</title>
+  </head>
+  <body class="bg-zinc-800 text-zinc-200">
+    <div id="app">
+      <div id="toast" class="hidden"></div>
+      <section id="register" class="hidden">
+        <form>
+          <div>
+            <label for="username">username</label>
+            <input
+              type="text"
+              name="username"
+              id="username"
+              placeholder="username..."
+            />
+            <div id="username-error"></div>
+          </div>
+          <div>
+            <label for="email">email</label>
+            <input
+              type="email"
+              name="email"
+              id="email"
+              placeholder="email..."
+            />
+            <div id="email-error"></div>
+          </div>
+          <div>
+            <label for="password">password</label>
+            <input
+              type="password"
+              name="password"
+              id="password"
+              placeholder="password..."
+            />
+            <div id="password-error"></div>
+          </div>
+          <div>
+            <label for="role">role</label>
+            <select name="role" id="role">
+              <option value="USER" selected>USER</option>
+              <option value="ADMIN">ADMIN</option>
+            </select>
+          </div>
+          <button type="submit">register</button>
+        </form>
+      </section>
+      <section id="login" class="hidden">
+        <form>
+          <div>
+            <label for="username">username</label>
+            <input
+              type="text"
+              name="username"
+              id="username"
+              placeholder="username..."
+            />
+            <div id="username-error"></div>
+          </div>
+          <div>
+            <label for="password">password</label>
+            <input
+              type="password"
+              name="password"
+              id="password"
+              placeholder="password..."
+            />
+            <div id="password-error"></div>
+          </div>
+        </form>
+      </section>
+      <section id="profile" class="hidden"></section>
+    </div>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
