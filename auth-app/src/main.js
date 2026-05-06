@@ -2,10 +2,50 @@ import "./style.css";
 
 const api_base = "https://api.freeapi.app/api/v1/users";
 
+// state with localstorage
+const state = {
+  key: "freeapi-auth",
+  data: {
+    accessToken: null,
+    refreshToken: null,
+    user: null,
+  },
+  fetch() {
+    const storedData = localStorage.getItem(this.data.key);
+    if (storedData) {
+      this.data = { ...this.data, ...JSON.parse(storedData) };
+    }
+  },
+  save() {
+    localStorage.setItem(this.key, JSON.stringify(this.data));
+  },
+};
+
 // services
 class Service {
   static async register(fields) {
     const url = `${api_base}/register`;
+    const options = {
+      method: "POST",
+      headers: {
+        accept: "application/json",
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(fields),
+    };
+
+    const response = await fetch(url, options);
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.message);
+    }
+
+    return { data: data.data, message: data.message };
+  }
+
+  static async login(fields) {
+    const url = `${api_base}/login`;
     const options = {
       method: "POST",
       headers: {
@@ -73,7 +113,7 @@ function toast(message, type = "success") {
   }, 3000);
 }
 
-// Switch Forms
+// screen switcher
 function switchForm(selector) {
   ["screen-login", "screen-register"].forEach((id) => {
     const elm = document.getElementById(id);
@@ -87,7 +127,7 @@ document.getElementById("login-toggle").addEventListener("click", () => {
   switchForm("register");
 });
 
-// handler
+// handlers
 async function handleRegister(event) {
   event.preventDefault();
   const formData = new FormData(event.currentTarget);
@@ -105,7 +145,28 @@ async function handleRegister(event) {
   }
 }
 
-async function handleLogin(event) {}
+async function handleLogin(event) {
+  event.preventDefault();
+  const formData = new FormData(event.currentTarget);
+  const fields = Object.fromEntries(formData.entries());
+  setLoading("login-btn", true);
+
+  try {
+    const res = await Service.login(fields);
+    const { accessToken, refreshToken, user } = res.data;
+    state.data.accessToken = accessToken;
+    state.data.refreshToken = refreshToken;
+    state.data.user = user;
+    state.save();
+    toast("User logged in successfully", "success");
+    // switchForm("user");
+  } catch (error) {
+    console.error(error);
+    toast(error.message, "error");
+  } finally {
+    setLoading("login-btn", false);
+  }
+}
 
 document
   .querySelector("#screen-register form")
