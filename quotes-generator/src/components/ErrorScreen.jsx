@@ -1,6 +1,6 @@
 import React from "react";
 
-function ErrorScreen() {
+function ErrorScreen({ error }) {
   return (
     <div className="min-h-screen bg-zinc-950 flex items-center justify-center text-red-400">
       Failed to load wisdom. Please try again.
