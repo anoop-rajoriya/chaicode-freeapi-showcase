@@ -10,49 +10,51 @@ import { getQuotes } from "./utils/service.js";
 
 export default function App() {
   const [quotes, setQuotes] = useState([]);
-  const [status, setStatus] = useState("idle");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
   const [history, setHistory] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(-1);
   const [favorites, setFavorites] = useState(new Set());
 
+  // 1. Define the missing generateRandomQuote function
+  const generateRandomQuote = useCallback((availableQuotes) => {
+    if (!availableQuotes || availableQuotes.length === 0) return;
+    const randomIndex = Math.floor(Math.random() * availableQuotes.length);
+    const newQuoteId = availableQuotes[randomIndex].id;
+
+    setHistory((prev) => [...prev, newQuoteId]);
+    setCurrentIndex((prev) => prev + 1);
+  }, []);
+
   useEffect(() => {
     const fetchQuotes = async () => {
-      setStatus("loading");
+      setLoading(true);
+      setError(null);
       try {
-        const { data } = await getQuotes();
-        setQuotes(data.data);
-        setStatus("success");
-        generateRandomQuote(mockApiData);
+        const response = await getQuotes();
+
+        // 2. Prevent a crash if the service returns an array on failure
+        if (Array.isArray(response) && response.length === 0) {
+          throw new Error("Failed to fetch quotes. API returned an error.");
+        }
+
+        const fetchedQuotes = response.data.data;
+        setQuotes(fetchedQuotes);
+
+        // 3. Generate the first quote automatically so the screen isn't blank
+        if (fetchedQuotes.length > 0) {
+          generateRandomQuote(fetchedQuotes);
+        }
       } catch (err) {
-        setStatus("error");
+        setError(err.message);
+        console.log(err);
+      } finally {
+        setLoading(false);
       }
     };
 
     fetchQuotes();
-  }, []);
-
-  const generateRandomQuote = useCallback(
-    (quoteList = quotes) => {
-      if (quoteList.length === 0) return;
-
-      let randomIndex;
-      const currentQuoteId = history[currentIndex];
-
-      do {
-        randomIndex = Math.floor(Math.random() * quoteList.length);
-      } while (
-        quoteList.length > 1 &&
-        quoteList[randomIndex].id === currentQuoteId
-      );
-
-      const newQuoteId = quoteList[randomIndex].id;
-      const newHistory = [...history.slice(0, currentIndex + 1), newQuoteId];
-
-      setHistory(newHistory);
-      setCurrentIndex(newHistory.length - 1);
-    },
-    [quotes, history, currentIndex],
-  );
+  }, [generateRandomQuote]);
 
   const handlePrevious = () => {
     if (currentIndex > 0) setCurrentIndex((prev) => prev - 1);
@@ -62,7 +64,8 @@ export default function App() {
     if (currentIndex < history.length - 1) {
       setCurrentIndex((prev) => prev + 1);
     } else {
-      generateRandomQuote();
+      // Pass the current state quotes to the function
+      generateRandomQuote(quotes);
     }
   };
 
@@ -79,8 +82,8 @@ export default function App() {
   const isFavorite = favorites.has(activeQuoteId);
   const canGoBack = currentIndex > 0;
 
-  if (status === "loading") return <LoadingScreen />;
-  if (status === "error") return <ErrorScreen />;
+  if (loading && quotes.length === 0) return <LoadingScreen />;
+  if (error) return <ErrorScreen error={error} />;
 
   return (
     <div className="min-h-screen bg-zinc-950 text-zinc-200 py-12 px-4 flex flex-col items-center justify-center selection:bg-zinc-700">
