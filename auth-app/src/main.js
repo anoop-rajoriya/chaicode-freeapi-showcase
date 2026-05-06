@@ -269,6 +269,7 @@ async function handleLogin(event) {
     state.data.user = user;
     state.save();
     toast("User logged in successfully", "success");
+    await loadProfile();
     switchScreen("profile");
   } catch (error) {
     console.error(error);
