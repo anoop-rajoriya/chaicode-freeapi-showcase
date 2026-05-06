@@ -1,16 +1,57 @@
-# React + Vite
+# Random User Viewer [Live](https://chaicode-random-user.netlify.app/)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A simple and elegant application that displays random user profiles fetched from a free API. Built with modern React and styled with Tailwind CSS.
 
-Currently, two official plugins are available:
+## Overview
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+Random User Viewer is a directory application that fetches random user data and displays them in beautiful, responsive cards. Each card shows user information including their profile picture, name, location, email, and phone number. Perfect for learning about API integration and building modern web interfaces.
 
-## React Compiler
+## Tech Stack
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- **Frontend Framework**: React 19
+- **Build Tool**: Vite
+- **Styling**: Tailwind CSS
+- **Linting**: ESLint
+- **Package Manager**: pnpm
 
-## Expanding the ESLint configuration
+## Local Setup
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+### Prerequisites
+
+- Node.js (v16 or higher)
+- pnpm (or npm/yarn)
+
+### Installation
+
+1. **Clone or navigate to the project directory**
+
+   ```bash
+   cd random-user-viewer
+   ```
+
+2. **Install dependencies**
+
+   ```bash
+   pnpm install
+   ```
+
+3. **Start the development server**
+   ```bash
+   pnpm dev
+   ```
+   The application will be available at `http://localhost:5173`
+
+### Available Scripts
+
+- `pnpm dev` - Start development server
+- `pnpm build` - Build for production
+- `pnpm preview` - Preview production build
+- `pnpm lint` - Run ESLint to check code quality
+
+## Features
+
+- 🎨 Beautiful UI with dark theme
+- 📱 Fully responsive design
+- ⚡ Fast loading with Vite
+- 🔄 Real-time user data fetching from API
+- ✨ Smooth animations and transitions

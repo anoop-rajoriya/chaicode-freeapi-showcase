@@ -1,16 +1,38 @@
-# React + Vite
+# Random Cat Viewer [Live](https://chaicode-random-cat-viewer.netlify.app/)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A small Vite-powered web app that fetches and displays random cats using a free cat image API. It is built with modern frontend tooling and provides a simple, responsive UI for browsing random cat pictures.
 
-Currently, two official plugins are available:
+## Overview
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- Fetches random cat images from a public API
+- Displays images with a clean, minimal interface
+- Includes loading state handling for smoother UX
+- Built as a lightweight Vite app for fast local development
 
-## React Compiler
+## Tech Stack
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- Vite
+- JavaScript
+- HTML
+- CSS
 
-## Expanding the ESLint configuration
+## Local Setup
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+1. Install dependencies:
+
+```bash
+pnpm install
+```
+
+2. Start the development server:
+
+```bash
+pnpm dev
+```
+
+3. Open the app in your browser using the local URL shown in the terminal.
+
+## Notes
+
+- Make sure `pnpm` is installed globally, or use another package manager if preferred.
+- This project is intended as a simple demo for working with free APIs and frontend tooling.
