@@ -11,7 +11,7 @@ const state = {
     user: null,
   },
   fetch() {
-    const storedData = localStorage.getItem(this.data.key);
+    const storedData = localStorage.getItem(this.key);
     if (storedData) {
       this.data = { ...this.data, ...JSON.parse(storedData) };
     }
@@ -174,3 +174,6 @@ document
 document
   .querySelector("#screen-login form")
   .addEventListener("submit", handleLogin);
+
+state.fetch();
+console.log(state);
