@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>auth-app</title>
+    <link rel="stylesheet" href="/src/style.css" />
+  </head>
+  <body
+    class="bg-neutral-900 text-neutral-100 font-sans min-h-screen flex items-center justify-center antialiased"
+  >
+    <div id="app" class="w-full max-w-lg mx-auto p-4 flex flex-col">
+      <!-- Toast Notification -->
+      <div
+        id="toast"
+        class="fixed top-4 right-4 bg-neutral-800 border border-neutral-700 text-neutral-100 px-4 py-3 rounded-md shadow-lg z-50 empty:hidden transition-all duration-300"
+      ></div>
+
+      <div id="screen-register" class="">
+        <header class="text-center py-3 text-lg md:text-xl font-semibold">
+          <h1>Register Account</h1>
+        </header>
+        <form class="flex flex-col gap-2">
+          <div class="flex flex-col gap-1.5">
+            <label for="username" class="text-sm font-medium text-neutral-300"
+              >Username</label
+            >
+            <input
+              type="text"
+              name="username"
+              id="username"
+              placeholder="anoop1234"
+              required
+              class="w-full bg-neutral-900/50 border border-neutral-700 rounded-md px-3 py-2 text-neutral-100 placeholder-neutral-500 focus:outline-none focus:ring-2 focus:ring-neutral-400 focus:border-transparent transition-all"
+            />
+          </div>
+
+          <div class="flex flex-col gap-1.5">
+            <label for="email" class="text-sm font-medium text-neutral-300"
+              >Email</label
+            >
+            <input
+              type="email"
+              name="email"
+              id="email"
+              placeholder="anoop@test.com"
+              required
+              class="w-full bg-neutral-900/50 border border-neutral-700 rounded-md px-3 py-2 text-neutral-100 placeholder-neutral-500 focus:outline-none focus:ring-2 focus:ring-neutral-400 focus:border-transparent transition-all"
+            />
+          </div>
+
+          <div class="flex flex-col gap-1.5">
+            <label for="password" class="text-sm font-medium text-neutral-300"
+              >Password</label
+            >
+            <input
+              type="password"
+              name="password"
+              id="password"
+              placeholder="••••••"
+              required
+              class="w-full bg-neutral-900/50 border border-neutral-700 rounded-md px-3 py-2 text-neutral-100 placeholder-neutral-500 focus:outline-none focus:ring-2 focus:ring-neutral-400 focus:border-transparent transition-all"
+            />
+          </div>
+
+          <div class="flex flex-col gap-1.5">
+            <label for="role" class="text-sm font-medium text-neutral-300"
+              >Role</label
+            >
+            <div class="relative">
+              <select
+                name="role"
+                id="role"
+                class="w-full bg-neutral-900/50 border border-neutral-700 rounded-md px-3 py-2 text-neutral-100 focus:outline-none focus:ring-2 focus:ring-neutral-400 focus:border-transparent transition-all appearance-none cursor-pointer"
+              >
+                <option value="USER">User</option>
+                <option value="ADMIN">Admin</option>
+              </select>
+              <div
+                class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-neutral-400"
+              >
+                <svg
+                  class="fill-current h-4 w-4"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 20 20"
+                >
+                  <path
+                    d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"
+                  />
+                </svg>
+              </div>
+            </div>
+          </div>
+
+          <button
+            id="register-btn"
+            type="submit"
+            class="mt-4 w-full bg-neutral-100 text-neutral-900 font-semibold py-2.5 px-4 rounded-md hover:bg-white focus:outline-none focus:ring-2 focus:ring-neutral-400 focus:ring-offset-2 focus:ring-offset-neutral-800 transition-all flex justify-center items-center gap-2 cursor-pointer"
+          >
+            Create account <span>&rarr;</span>
+          </button>
+        </form>
+        <p class="text-sm text-neutral-200 text-center py-3 mt-3">
+          Already have an account?
+          <a id="register-toggle" class="hover:underline cursor-pointer"
+            >Log In</a
+          >
+        </p>
+      </div>
+
+      <div id="screen-login" class="hidden">
+        <header class="text-center py-3 text-lg md:text-xl font-semibold">
+          <h1>Login Account</h1>
+        </header>
+        <form class="flex flex-col gap-2">
+          <div class="flex flex-col gap-1.5">
+            <label
+              for="login-email"
+              class="text-sm font-medium text-neutral-300"
+              >Email</label
+            >
+            <input
+              type="email"
+              name="email"
+              id="login-email"
+              placeholder="anoop@test.com"
+              required
+              class="w-full bg-neutral-900/50 border border-neutral-700 rounded-md px-3 py-2 text-neutral-100 placeholder-neutral-500 focus:outline-none focus:ring-2 focus:ring-neutral-400 focus:border-transparent transition-all"
+            />
+          </div>
+
+          <div class="flex flex-col gap-1.5">
+            <label
+              for="login-password"
+              class="text-sm font-medium text-neutral-300"
+              >Password</label
+            >
+            <input
+              type="password"
+              name="password"
+              id="login-password"
+              placeholder="••••••"
+              required
+              class="w-full bg-neutral-900/50 border border-neutral-700 rounded-md px-3 py-2 text-neutral-100 placeholder-neutral-500 focus:outline-none focus:ring-2 focus:ring-neutral-400 focus:border-transparent transition-all"
+            />
+          </div>
+
+          <button
+            id="login-btn"
+            type="submit"
+            class="mt-4 w-full bg-neutral-100 text-neutral-900 font-semibold py-2.5 px-4 rounded-md hover:bg-white focus:outline-none focus:ring-2 focus:ring-neutral-400 focus:ring-offset-2 focus:ring-offset-neutral-800 transition-all flex justify-center items-center gap-2 cursor-pointer"
+          >
+            Sign In <span>&rarr;</span>
+          </button>
+        </form>
+        <p class="text-sm text-neutral-200 text-center py-3 mt-3">
+          Don't have an account?
+          <a id="login-toggle" class="hover:underline cursor-pointer"
+            >Register</a
+          >
+        </p>
+      </div>
+    </div>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
